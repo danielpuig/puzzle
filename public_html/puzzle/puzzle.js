@@ -42,6 +42,8 @@ function selecciona_ficha() {
     if($("#ficha_seleccionada").children("img").length === 1) {
         $("#ficha_seleccionada>img").appendTo("#fichas_desordenadas");
         $(this).appendTo("#ficha_seleccionada");
+    }else {
+        $(this).appendTo("#ficha_seleccionada");
     }
 }
 
