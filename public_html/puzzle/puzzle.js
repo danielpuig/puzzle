@@ -35,6 +35,7 @@ function iniciar() {
     $("#fichas_desordenadas>img").click(selecciona_ficha);
     $("#ficha_seleccionada").click(devuelve_ficha);
     $(".tablero>div>div").click(coloca_ficha);
+    $("button.btn-info").click(check);
     
 }
 
@@ -54,11 +55,34 @@ function devuelve_ficha() {
 }
 
 function coloca_ficha() {
-    if($("#ficha_seleccionada").children("img").length === 1 && $(this).children("img").length === 1) {
+    if($(this).children().length === 0) {
+        $("#ficha_seleccionada>img").off();
+        $("#ficha_seleccionada>img").appendTo($(this));
+    }else{
+        if($("#ficha_seleccionada").children().length!==0) {
+            var imatge = $("#ficha_seleccionada>img");
+        }
+        $(this).children("img").click(selecciona_ficha);
         $(this).children("img").appendTo("#ficha_seleccionada");
-        $("#ficha_seleccionada>").first().children("img").appendTo($(this));
+        imatge.appendTo($(this));
     }
-    else if($("#ficha_seleccionada").children("img").length === 1) {
-        $("#ficha_seleccionada>img").appendTo(this);
+}
+
+function check() {
+    var casillas = $(".tablero>div>div");
+    var valid = true;
+    casillas.each(function(i) {
+        var imatge = $(this).children().attr("src");
+        var ruta = fitxes_final["fitxa"+(i+1)];
+        ruta+=".jpg";
+        if(imatge!==ruta) {
+            valid = false;
+            return false;
+        }
+    });
+    if(valid===true) {
+        alert("Well Done!");
+    }else {
+        alert("Try Again!");
     }
 }
